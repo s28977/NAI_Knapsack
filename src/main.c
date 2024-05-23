@@ -8,8 +8,7 @@ struct Object
 };
 
 
-void visitVector(int* maxVector, int* maxValue, int vector, const struct Object* objectsArr, int arrSize, int capacity);
-
+void visitVector(int* maxVector, int* maxValue, int vector, const struct Object* objArr, int arrSize, int capacity);
 
 void readFile(const char* path, int* capacity, struct Object* objArr, int* size);
 
@@ -24,13 +23,12 @@ int main(void)
     int arrSize;
     readFile("C:\\Users\\Jan\\JetBrainsProjects\\CLionProjects\\NAI\\NAI_Knapsack\\knapsack_data\\8", &capacity, objArr,
              &arrSize);
-    int maxVector;
+    int maxVector = 0b0;
     int maxValue = 0;
-    for (int vector = 0b0, lastVector = (0b1 << 30) - 1; vector < lastVector; vector++)
+    for (int vector = 0b1, lastVector = (0b1 << arrSize) - 1; vector < lastVector; vector++)
     {
         visitVector(&maxVector, &maxValue, vector, objArr, arrSize, capacity);
     }
-    printVector(maxVector, objArr, arrSize);
     end = clock();
     printf("Execution time: %f seconds\n", ((double) (end - start)) / CLOCKS_PER_SEC);
 }
@@ -49,7 +47,7 @@ void readFile(const char* path, int* pCapacity, struct Object* objArr, int* pArr
     fclose(filePtr);
 }
 
-void visitVector(int* maxVector, int* maxValue, int vector, const struct Object* objectsArr, int arrSize, int capacity)
+void visitVector(int* maxVector, int* maxValue, int vector, const struct Object* objArr, int arrSize, int capacity)
 {
     int totalSize = 0;
     int totalValue = 0;
@@ -57,8 +55,8 @@ void visitVector(int* maxVector, int* maxValue, int vector, const struct Object*
     {
         if (vector & mask)
         {
-            totalSize += objectsArr[i].size;
-            totalValue += objectsArr[i].value;
+            totalSize += objArr[i].size;
+            totalValue += objArr[i].value;
         }
         if (totalSize > capacity)
         {
@@ -67,15 +65,15 @@ void visitVector(int* maxVector, int* maxValue, int vector, const struct Object*
     }
     if (totalValue > *maxValue)
     {
-        printVector(vector, objectsArr, arrSize);
         *maxVector = vector;
         *maxValue = totalValue;
+        printVector(vector, objArr, arrSize);
     }
 }
 
 void printVector(int vector, const struct Object* objArr, int size)
 {
-    char vectorStr[size+1];
+    char vectorStr[size + 1];
     int totalSize = 0;
     int totalValue = 0;
     for (unsigned int mask = 0b1, i = 0; i < size; mask = (mask << 1), i++)
