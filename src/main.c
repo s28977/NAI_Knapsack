@@ -21,7 +21,7 @@ int main(void)
     int capacity;
     struct Object objArr[100];
     int arrSize;
-    readFile("C:\\Users\\Jan\\JetBrainsProjects\\CLionProjects\\NAI\\NAI_Knapsack\\knapsack_data\\8", &capacity, objArr,
+    readFile("C:\\Users\\Jan\\JetBrainsProjects\\CLionProjects\\NAI\\NAI_Knapsack\\knapsack_data\\2", &capacity, objArr,
              &arrSize);
     int maxVector = 0b0;
     int maxValue = 0;
