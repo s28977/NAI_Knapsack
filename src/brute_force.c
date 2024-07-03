@@ -21,7 +21,7 @@ int main(void)
     int capacity;
     struct Object objArr[100];
     int arrSize;
-    readFile("C:\\Users\\Jan\\JetBrainsProjects\\CLionProjects\\NAI\\NAI_Knapsack\\knapsack_data\\2", &capacity, objArr,
+    readFile("C:\\Users\\Jan\\JetBrainsProjects\\CLionProjects\\NAI\\NAI_Knapsack\\knapsack_data\\1", &capacity, objArr,
              &arrSize);
     int maxVector = 0b0;
     int maxValue = 0;
@@ -29,6 +29,7 @@ int main(void)
     {
         visitVector(&maxVector, &maxValue, vector, objArr, arrSize, capacity);
     }
+    printVector(maxVector, objArr, arrSize);
     end = clock();
     printf("Execution time: %f seconds\n", ((double) (end - start)) / CLOCKS_PER_SEC);
 }
@@ -67,7 +68,7 @@ void visitVector(int* maxVector, int* maxValue, int vector, const struct Object*
     {
         *maxVector = vector;
         *maxValue = totalValue;
-        printVector(vector, objArr, arrSize);
+//        printVector(vector, objArr, arrSize);
     }
 }
 

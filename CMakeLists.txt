@@ -3,4 +3,5 @@ project(NAI_Knapsack C)
 
 set(CMAKE_C_STANDARD 23)
 
-add_executable(NAI_Knapsack src/main.c)
+add_executable(BruteForce src/brute_force.c)
+add_executable(Dynamic src/dynamic_programming.c)
