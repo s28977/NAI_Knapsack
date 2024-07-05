@@ -21,29 +21,29 @@ int main(void)
     int arrSize;
     readFile("C:\\Users\\Jan\\JetBrainsProjects\\CLionProjects\\NAI\\NAI_Knapsack\\knapsack_data\\1", &capacity, objArr,
              &arrSize);
-    int memArray[arrSize + 1][capacity + 1];
+    int solArray[arrSize + 1][capacity + 1];
     for (int i = 0; i <= arrSize; i++)
     {
-        memArray[i][0] = 0;
+        solArray[i][0] = 0;
     }
     for (int j = 0; j <= capacity; j++)
     {
-        memArray[0][j] = 0;
+        solArray[0][j] = 0;
     }
-    // Filling memorisation array
+    // Filling solution array
     for (int i = 1; i <= arrSize; i++)
     {
         for (int j = 1; j <= capacity; j++)
         {
-            int previous = memArray[i - 1][j];
+            int previous = solArray[i - 1][j];
             int reducedCapacity = j - objArr[i - 1].size;
             if (reducedCapacity < 0)
             {
-                memArray[i][j] = previous;
+                solArray[i][j] = previous;
             } else
             {
-                int candidate = memArray[i - 1][reducedCapacity] + objArr[i - 1].value;
-                memArray[i][j] = candidate > previous ? candidate : previous;
+                int candidate = solArray[i - 1][reducedCapacity] + objArr[i - 1].value;
+                solArray[i][j] = candidate > previous ? candidate : previous;
             }
         }
     }
@@ -51,7 +51,7 @@ int main(void)
     int solutionVector = 0b0;
     for (int i = arrSize, j = capacity; i > 0 && j > 0; i--)
     {
-        if (memArray[i][j] != memArray[i - 1][j])
+        if (solArray[i][j] != solArray[i - 1][j])
         {
             j = j - objArr[i-1].size;
             int mask = 0b1 << (i - 1);
